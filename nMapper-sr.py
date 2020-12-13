@@ -18,6 +18,7 @@ intro = '''
             Author     : Orhan YILDIRIM
             Medium     : @orhan_yildirim
             Linkedin   : www.linkedin.com/in/orhan-yildirim
+            License    : MIT License
             Note       : Who's up!
 
             You can use "help" command for access help section.

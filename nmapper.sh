@@ -16,7 +16,8 @@ echo "$(tput setaf 7)$(tput bold)
             Author     : Orhan YILDIRIM
             Medium     : @orhan_yildirim
             Linkedin   : www.linkedin.com/in/orhan-yildirim
-            Note       : Automated penetration tool!
+            License    : MIT License
+            Note       : Who's up!
 
 $(tput sgr 0)";
 
