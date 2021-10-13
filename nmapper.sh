@@ -1,6 +1,5 @@
 #!/usr/bin/bash
 
-
 echo "$(tput setaf 1)$(tput bold)     
       ::::    :::  :::   :::      :::    ::::::::: ::::::::: ::::::::::::::::::: 
      :+:+:   :+: :+:+: :+:+:   :+: :+:  :+:    :+::+:    :+::+:       :+:    :+: 
@@ -76,8 +75,11 @@ SECONDS=0
 echo "$(tput setaf 4)$(tput bold)[+] Started SMB Vulnerability Script$(tput sgr 0)"
 nohup nmap -n -Pn -iL nMapper-results/445.txt  --script smb-vuln-ms17-010.nse --stats-every 30s -p445 -oN nMapper-results/ms17-010_vulnerability 2> stderrfile ;
 rm nohup*
-cat nMapper-results/ms17-010_vulnerability | grep -B 12 '''SMBv1 servers (ms17-010)''' | grep 'for' | awk '{print $5}' > nMapper-results/ms17_010.txt
-cat nMapper-results/ms17_010.txt | while read line;do echo "$(tput setaf 7)$(tput setab 1)[!] FOUND MS17-010 VULNERABILITY:  $(tput sgr 0)" ;egrep "Nmap scan report for |State: VULNERABLE|IDs:  CVE:|Remote"| sed 's/Nmap scan report for/xx/'| sed ''/xx/s//$(printf "\033[41m[\!]\033[41m")/'';done ; echo "$(tput setaf 7)$(tput setab 1)[+] SMB VULNERABILITY SCRIPT is done! $(tput sgr 0)";
+cat nMapper-results/ms17-010_vulnerability.txt | grep -B 12 '''SMBv1 servers (ms17-010)''' | grep 'for' | awk '{print $5}' > nMapper-results/ms17_010.txt
+if cat nMapper-results/ms17-010_vulnerability.txt | grep -B 12 '''SMBv1 servers (ms17-010)''' | grep 'for' | awk '{print $5}'
+then
+	cat nMapper-results/ms17_010.txt | while read line;do echo "$(tput setaf 7)$(tput setab 1)[!] FOUND MS17-010 VULNERABILITY:  $(tput sgr 0)" ;egrep "Nmap scan report for |State: VULNERABLE|IDs:  CVE:|Remote"| sed 's/Nmap scan report for/xx/'| sed ''/xx/s//$(printf "\033[41m[\!]\033[41m")/'';done ; echo "$(tput setaf 7)$(tput setab 1)[+] SMB VULNERABILITY SCRIPT is done! $(tput sgr 0)";
+fi
 duration=$SECONDS
 echo "$(tput setaf 1)$(tput bold)[+] Finished MS17-010 Vulnerability Script! Total Time: $(($duration / 60)) min. $(($duration % 60)) sec.$(tput sgr 0)"
 #======================================================================================================================
